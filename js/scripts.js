@@ -1,16 +1,25 @@
 //business logic
+function pizzaPrice (size, toppings) {
+  if (size === 'small') {var price = 8;
+  } else if (size === 'medium') {var price = 10;
+  } else {var price = 12;}
+  price += toppings.length;
+  return price;
+}
+
+
 function Pizza(size, toppings) {
   this.size = size;
   this.toppings = toppings;
-  this.price = 10;
+  this.price = pizzaPrice (size, toppings);
 }
+  totalCost = 0;
 
 // user interface logic
 $(document).ready(function() {
   $("form#new-pizza").submit(function(event) {
     event.preventDefault();
     var size = "";
-    totalCost = 0;
     $("input:radio[name=size]:checked").each(function(){
       size = $(this).val();
     });
