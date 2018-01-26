@@ -1,18 +1,18 @@
 //business logic
-function pizzaPrice (size, toppings) {
-  if (size === 'small') {var price = 8;
-  } else if (size === 'medium') {var price = 10;
-  } else {var price = 12;}
-  price += toppings.length;
-  return price;
-}
-
 
 function Pizza(size, toppings) {
   this.size = size;
   this.toppings = toppings;
-  this.price = pizzaPrice (size, toppings);
 }
+
+Pizza.prototype.price = function() {
+  if (this.size === 'small') {var price = 8;
+  } else if (this.size === 'medium') {var price = 10;
+  } else {var price = 12;}
+  price += this.toppings.length;
+  return price;
+}
+
   totalCost = 0;
 
 // user interface logic
@@ -32,11 +32,10 @@ $(document).ready(function() {
       alert ("Please choose at least one topping!");
     }  else {
       var newPizza = new Pizza(size, toppings);
-      totalCost += newPizza.price
+      totalCost += newPizza.price();
       var pizzaHtml = "<li><span class='pizza'>" + size
-      console.log (newPizza.toppings);
       newPizza.toppings.forEach(function(topping) {pizzaHtml += (" "+topping)});
-      $("ol#pizzas").append(pizzaHtml + " pizza - $"+newPizza.price+"</span></li>");
+      $("ol#pizzas").append(pizzaHtml + " pizza - $"+newPizza.price()+"</span></li>");
       $("h4#totalCost").text("Total Cost: $" + parseInt(totalCost))
 
       $('input[type=checkbox]').each(function() {
